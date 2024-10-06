@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Anime Collection</title>
+</head>
+<body>
+
+    <h1>Welcome, <span id="userEmail"></span></h1>
+    <h2>Your Anime Collection</h2>
+    <select id="animeList" size="5" style="width: 300px;"></select>
+
+    <h2>Add Anime</h2>
+    <form id="addAnimeForm" action="/addAnime" method="POST">
+        <input type="text" name="anime" placeholder="Enter anime name" required>
+        <button type="submit">Add Anime</button>
+    </form>
+
+    <h2>Add/Update Anime Description</h2>
+    <form id="addDescriptionForm" action="/addDescription" method="POST">
+        <input type="text" name="title" placeholder="Enter anime title" required>
+        <input type="text" name="description" placeholder="Enter anime description" required>
+        <button type="submit">Add/Update Description</button>
+    </form>
+
+    <h2>Edit Anime</h2>
+    <form id="editAnimeForm" action="/editAnime" method="POST">
+        <input type="text" name="oldTitle" placeholder="Old Anime Title" required>
+        <input type="text" name="newTitle" placeholder="New Anime Title" required>
+        <button type="submit">Edit Anime</button>
+    </form>
+    
+    <h2>Delete Anime</h2>
+    <form action="/deleteAnime" method="POST">
+        <input type="text" name="title" placeholder="Anime Title to Delete" required>
+        <button type="submit">Delete Anime</button>
+    </form>
+
+    <button onclick="window.location.href='/landing.html';">Go to Landing Page</button>
+
+    <script>
+        fetch('/api/user-animes')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+
+                document.getElementById('userEmail').innerText = data.email;
+
+                const animeListElement = document.getElementById('animeList');
+                animeListElement.innerHTML = ''; 
+
+                data.animes.forEach(anime => {
+                    const [title, description] = anime.split('|'); 
+                    const option = document.createElement('option');
+                    option.value = title; 
+                    option.textContent = `${title} - ${description}`; 
+                    animeListElement.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>

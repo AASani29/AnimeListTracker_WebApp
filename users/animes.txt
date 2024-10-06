@@ -1,0 +1,4 @@
+lovely@gmail.com,Naru,One piece,Naruto2|Its my favourite,Naruto63|undefined,Naruto72|undefined,Naruto73|undefined,Naruto23,Naruto56
+john@example.com,Naruto5,One Piece5
+loren@gmail.com,AOT2|Its my favourite
+lorent@gmail.com,AOT2|Its my favourite,One piece
