@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 app.use(authRoutes);
 app.use(homeRoutes);
 
-const port = 3000;
+const port = 80;
 app.listen(port, () => {
     console.log(`App is listening to port ${port}`);
 });
